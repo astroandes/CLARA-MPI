@@ -26,7 +26,8 @@ void PhotonFree(lyman_RT_photons *Ph){
 void PhotonListInitialize(lyman_RT_photons *Ph){
     int i;
     double theta, phi;
-
+    double vel_x, vel_y, vel_z;
+    double v_thermal;
     for(i=0;i<Ph->N_photons;i++){
 	RND_spherical(&(Ph->Dir[3*i]));
 	Ph->Pos[3*i + 0] = 0.0;
@@ -70,6 +71,17 @@ void PhotonListInitialize(lyman_RT_photons *Ph){
 	    Ph->Pos[3*i + 1] = 0.0;
 	    Ph->Pos[3*i + 2] = 0.0;
 	  }
+	}
+
+	/*Here must come the initialization of x*/
+	if(All.RotatingSphere){
+	  vel_x = - (Ph->Pos[3*i + 1]/All.SlabLength)*All.VmaxSphere*1.0e5;/* in cm/s*/
+	  vel_y =  (Ph->Pos[3*i + 0]/All.SlabLength)*All.VmaxSphere*1.0e5;/* in cm/s*/
+	  vel_z = 0.0;
+	  
+	  /*This initialization takes into account the co-rotatiing nature, in the case of central emission
+	   vel_x, vel_y and vel_z are all equal to cero*/
+	  Ph->x_out[i] = (vel_x*Ph->Dir[3*i +0] + vel_y*Ph->Dir[3*i +1] + vel_z*Ph->Dir[3*i +2]) / All.v_thermal;
 	}
     }
 

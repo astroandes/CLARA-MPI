@@ -82,7 +82,7 @@ typedef struct global_setup
     double InputFrequency;
     double TotalLuminosity;
     double NumberDensityHI;
-
+  double v_thermal;
 
     /*units*/
     double UnitMass_in_g;  

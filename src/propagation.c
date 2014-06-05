@@ -71,7 +71,8 @@ void PropagateAllSetup(void)
     nu_doppler = CONSTANT_NU_DOPPLER*sqrt(All.Temperature/10000.0); /* in s^-1 */
     a = Lya_nu_line_width_CGS/(2.0*nu_doppler);
     ly_sigma_0 =  LyaCrossSection(0,a);
-
+    
+    All.v_thermal = (nu_doppler/Lya_nu_center_CGS)*C_LIGHT;/*In cm/s*/
 
     column_HI = All.Tau / ly_sigma_0;
     All.SlabLength = All.Tau/(All.NumberDensityHI*ly_sigma_0);
@@ -202,10 +203,10 @@ void PropagateGetBulkVel(double *BulkVel, double *Pos){
 	
     }
 	if(All.RotatingSphere){
-	BulkVel[0]=(-Pos[1]/All.SlabLength)*All.VmaxSphere*1.0e5;
-	BulkVel[1]=(Pos[0]/All.SlabLength)*All.VmaxSphere*1.0e5;
-	BulkVel[2]=0.0;
-}	
+	  BulkVel[0]=(-Pos[1]/All.SlabLength)*All.VmaxSphere*1.0e5;
+	  BulkVel[1]=(Pos[0]/All.SlabLength)*All.VmaxSphere*1.0e5;
+	  BulkVel[2]=0.0;
+	}	
 
 }
 
