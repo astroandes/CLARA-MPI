@@ -1,0 +1,2 @@
+void ReadParameters(char *fname);
+

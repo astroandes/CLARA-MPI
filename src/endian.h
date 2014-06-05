@@ -1,0 +1,10 @@
+int fread_sw(void *,int,int,FILE *,int);
+int swapI(int);
+float swapF(float);
+double swapD(double);
+void Dswap2B(void*);
+void Dswap4B(void*);
+void Dswap8B(void*);
+void Dswap2BArr(void*,int);
+void Dswap4BArr(void*,int);
+void Dswap8BArr(void*,int);
