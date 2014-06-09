@@ -2,7 +2,7 @@
 #CC_OPTIONS = -q64 -DDEBUG
 #LNK_OPTIONS = -q64
 CC = mpicc
-CC_OPTIONS =   -O2 -Wall -DDEBUG 
+CC_OPTIONS =   -O2 -Wall -DDEBUG #-DDEEP_DEBUG
 LNK_OPTIONS = 
 EXEC = mine.x
 LIBS = -lm 

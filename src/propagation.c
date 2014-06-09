@@ -257,7 +257,10 @@ int PropagatePackage(double *PosIn, double *DirIn, double *x_in, int *status){
     x = *x_in;
     
 
-
+#ifdef DEEP_DEBUG
+    fprintf(stdout, "starting propagation (x=%f)\n", *x_in);
+      fflush(stdout);
+#endif
     stat = *status;
     /*difuse the photon in space and frequency until it gets out*/
     while(PropagateIsInside(&(Pos[0]))&&(stat==ACTIVE)&&n_iter<MAX_ITER){
@@ -280,13 +283,16 @@ int PropagatePackage(double *PosIn, double *DirIn, double *x_in, int *status){
             
       /*change the direction of the photon to the fluid frame*/
       PropagateLorentzDirChange(&(Dir[0]), BulkVel, -1);
-                  
+      
+
+
       /*--------------------------------------------------------------------------*/
       /*Change the frequency and the Propagation direction, find the displacement*/	
       stat = PropagateStep(&x, Dir, &r_travel, a, n_HI);	    	
       /*--------------------------------------------------------------------------*/
       
-      
+
+
       /*Change the new direction to the lab frame value*/
       PropagateLorentzDirChange(Dir, BulkVel, 1);
       
@@ -302,6 +308,10 @@ int PropagatePackage(double *PosIn, double *DirIn, double *x_in, int *status){
       n_iter++;
       last_x = x;
     }
+#ifdef DEEP_DEBUG
+      fprintf(stdout, "finishing propagation (x=%f)\n", x);
+      fflush(stdout);
+#endif
     
     /*update the final status of the photon, just to know if it was absorbed, or what*/
     if(stat==ACTIVE){
@@ -342,9 +352,11 @@ void PropagateAll(void)
 
     /*create the packages*/
     Ph = PhotonListCreate(n_packages);
+
     
     /*initialize the packages*/
     PhotonListInitialize(Ph);
+    MPI_Barrier (MPI_COMM_WORLD);
     
     if(All.OutputInitList){
 	sprintf(FileName, "%s/%s_in.proc.%d.ascii", All.OutputDir, All.OutputFile, ThisProc);
@@ -358,6 +370,12 @@ void PropagateAll(void)
     
     /*propagate each package*/
     for(i=0;i<n_packages;i++){
+#ifdef DEEP_DEBUG
+
+      fprintf(stdout, "Propagating packages %d/%d\n pro(%d/%d)\n", i, n_packages, ThisProc, SizeProc);
+      fflush(stdout);
+#endif
+
 	Ph->ScatterHI[i] = 
 	    PropagatePackage(&(Ph->Pos[3*i]), &(Ph->Dir[3*i]), &(Ph->x_out[i]), &(Ph->Active[i]));	
 	if(All.OutputFinalList){
@@ -388,6 +406,7 @@ void TestFirstScatter(double x, double a)
     sprintf(FileName, "%s/%s_FirstScatter.proc.%d", All.OutputDir, All.OutputTestFile, ThisProc);
     if(!(out=fopen(FileName, "w"))){
 	fprintf(stderr, "TestFirstScatter problem opening file %s\n", FileName);
+	fflush(stderr);
 	MPI_Abort(MPI_COMM_WORLD, 0);
     }
     fprintf(out, "%d %e %e\n", N_POINTS_IN_TEST, x, a);

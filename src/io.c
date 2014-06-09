@@ -32,8 +32,8 @@ void OpenPhotonListAscii(char *fname, lyman_RT_photons *Ph)
     if(!(f = fopen(fname,"w")))
     {
 	fprintf(stderr,"DumpPhotonList: Problem opening file %s\n",fname);
+	fflush(stderr);
 	MPI_Abort(MPI_COMM_WORLD, 0);
-
     }
     fprintf(f, "# %d %e %e %e %e %e\n", Ph->N_photons, All.Tau, All.Temperature, All. InputFrequency, All.TauDust, All.DustAbsorptionProb);
     fclose(f);
