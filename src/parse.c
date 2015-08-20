@@ -81,6 +81,14 @@ void ReadParameters(char *fname)
   addr[nt] = &All.VmaxSphere;
   id[nt++] = DOUBLE;
 
+  strcpy(tag[nt], "VmaxRotation");
+  addr[nt] = &All.VmaxRotation;
+  id[nt++] = DOUBLE;
+
+  strcpy(tag[nt], "VmaxOutflow");
+  addr[nt] = &All.VmaxOutflow;
+  id[nt++] = DOUBLE;
+
   strcpy(tag[nt], "HomogeneousInit");
   addr[nt] = &All.HomogeneousInit;
   id[nt++] = INT;
@@ -103,6 +111,10 @@ void ReadParameters(char *fname)
 
   strcpy(tag[nt], "TestPerpVel");
   addr[nt] = &All.TestPerpVel;
+  id[nt++] = INT;
+
+  strcpy(tag[nt], "OutflowRotationSphere");
+  addr[nt] = &All.OutflowRotationSphere;
   id[nt++] = INT;
 
   strcpy(tag[nt], "ExpandingSphere");

@@ -53,6 +53,8 @@ typedef struct global_setup
     double EffectiveDust;
 
     double VmaxSphere;
+    double VmaxRotation;
+    double VmaxOutflow;
 
     /*parameters for the dust model*/
     double GrainSize;         /*in cm*/
@@ -74,6 +76,7 @@ typedef struct global_setup
     int TestFirstScatter;
     int TestPerpVel;
     int TestRND;
+    int OutflowRotationSphere;
     int HomogeneousInit; /*specifies if the photons are to be homogeneously distributed over the volume*/
 
     /*Define some physical characteristics of the problem*/
