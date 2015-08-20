@@ -83,6 +83,29 @@ void PhotonListInitialize(lyman_RT_photons *Ph){
 	   vel_x, vel_y and vel_z are all equal to cero*/
 	  Ph->x_out[i] = (vel_x*Ph->Dir[3*i +0] + vel_y*Ph->Dir[3*i +1] + vel_z*Ph->Dir[3*i +2]) / All.v_thermal;
 	}
+
+
+		/*Here must come the initialization of x*/
+	if(All.OutflowRotationSphere){
+	  /*first the outflow*/
+	  vel_x  = (Ph->Pos[3*i + 0]/All.SlabLength)*All.VmaxOutflow*1.0e5;
+	  vel_y  = (Ph->Pos[3*i + 1]/All.SlabLength)*All.VmaxOutflow*1.0e5;
+	  vel_z  = (Ph->Pos[3*i + 2]/All.SlabLength)*All.VmaxOutflow*1.0e5;
+
+	  /*now the rotation*/
+	  vel_x = vel_x - (Ph->Pos[3*i + 1]/All.SlabLength)*All.VmaxRotation*1.0e5;/* in cm/s*/
+	  vel_y = vel_y + (Ph->Pos[3*i + 0]/All.SlabLength)*All.VmaxRotation*1.0e5;/* in cm/s*/
+	  vel_z = vel_z + 0.0;
+	  
+	  /*This initialization takes into account the co-rotatiing nature, in the case of central emission
+	   vel_x, vel_y and vel_z are all equal to cero*/
+	  Ph->x_out[i] = (vel_x*Ph->Dir[3*i +0] + vel_y*Ph->Dir[3*i +1] + vel_z*Ph->Dir[3*i +2]) / All.v_thermal;
+	}
+
+
+	
+
+
     }
 
     if(All.SimulationCube){
