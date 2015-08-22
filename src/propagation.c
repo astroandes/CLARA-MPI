@@ -202,12 +202,22 @@ void PropagateGetBulkVel(double *BulkVel, double *Pos){
 	}
 	
     }
-	if(All.RotatingSphere){
-	  BulkVel[0]=(-Pos[1]/All.SlabLength)*All.VmaxSphere*1.0e5;
-	  BulkVel[1]=(Pos[0]/All.SlabLength)*All.VmaxSphere*1.0e5;
-	  BulkVel[2]=0.0;
-	}	
-
+    if(All.RotatingSphere){
+      BulkVel[0]=(-Pos[1]/All.SlabLength)*All.VmaxSphere*1.0e5;
+      BulkVel[1]=(Pos[0]/All.SlabLength)*All.VmaxSphere*1.0e5;
+      BulkVel[2]=0.0;
+    }	
+    if(All.OutflowRotationSphere){
+      /*first the outflow component*/
+      	for(i=0;i<3;i++){
+	    BulkVel[i] = (Pos[i]/All.SlabLength)*(All.VmaxOutflow*1.0e5); /*in cm/s*/	      
+	}
+	/*then the rotating component*/
+	BulkVel[0] = BulkVel[0] + (-Pos[1]/All.SlabLength)*All.VmaxRotation*1.0e5;
+	BulkVel[1] = BulkVel[1] + (Pos[0]/All.SlabLength)*All.VmaxRotation*1.0e5;
+	BulkVel[2] = BulkVel[2] + 0.0;
+    }
+    
 }
 
 

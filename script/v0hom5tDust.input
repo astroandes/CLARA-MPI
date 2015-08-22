@@ -11,7 +11,8 @@ OutputFile        RotatingV0Sphere5tHOMDust
 NeufeldSlab          0
 NeufeldCube          0
 ExpandingSphere      0
-RotatingSphere       1
+RotatingSphere       0
+OutflowRotationSphere 0
 TestParallelVel      0
 TestParallelVelFast  0
 TestFirstScatter     0
@@ -19,6 +20,7 @@ TestRND              0
 TestPerpVel          0
 SimulationCube       0
 HomogeneousInit      1
+
 
 % parameters for the tests
 Test_a               0.00014
@@ -30,6 +32,8 @@ Temperature          10000.0 % in  Kelvin
 Tau                  1.0e5
 NumberDensityHI      1e6
 VmaxSphere        0.0 % in km/s
+VmaxRotation      0.0 % in km/s
+VmaxOutflow       0.0 % in km/s
 
 % parameters of the dust model
 GrainSize             1.0e-6
@@ -43,7 +47,7 @@ LuminosityPerPackage   1.0
 EffectiveEta           0.71
 EffectiveDust          1.0e-3
 ThresholdCube          10000.0
-UseDust                1
+UseDust                0
 UseVelocities          1
 UseAtomSpeedUp         0
 
