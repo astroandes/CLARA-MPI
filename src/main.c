@@ -35,7 +35,7 @@ int main(int argc, char **argv)
   }
 
   /*Make science tests*/
-  if(All.NeufeldSlab || All.NeufeldCube || All.ExpandingSphere || All.SimulationCube || All.RotatingSphere){
+  if(All.NeufeldSlab || All.NeufeldCube || All.ExpandingSphere || All.SimulationCube || All.RotatingSphere || All.OutflowRotationSphere){
       PropagateAll();
   }
 
