@@ -48,7 +48,7 @@ int PropagateIsInside(double *Pos)
 	}
     }
 
-    if(All.ExpandingSphere||All.RotatingSphere){
+    if(All.ExpandingSphere||All.RotatingSphere||All.OutflowRotationSphere){
 	radius = Pos[0]*Pos[0] + Pos[1]*Pos[1] + Pos[2]*Pos[2];
 	radius = sqrt(radius);
 	if(radius< All.SlabLength){
